@@ -2,6 +2,8 @@
 // Callers may optionally include other properties in the element objects as well.
 // `PlanarElements`'s accessors return the entire objects, but `PlanarElement` does not look at anything but the `point`s.
 const PlanarElements = (elementArray) => {
+  const count = () => elementArray.length;
+
   const findClosestElement = (point) => {
     let closestDistance = Infinity;
     let closestElement = undefined;
@@ -15,7 +17,16 @@ const PlanarElements = (elementArray) => {
     return closestElement;
   };
 
-  return { findClosestElement };
+  const remove = (element) => {
+    const index = elementArray.indexOf(element);
+    elementArray.splice(index, 1);
+  };
+
+  return {
+    count,
+    findClosestElement,
+    remove,
+  };
 };
 
 module.exports = PlanarElements;

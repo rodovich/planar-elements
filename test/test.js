@@ -4,9 +4,12 @@ const test = (size) => {
   const elements = new Array(size).fill().map(() => ({ point: { x: Math.round(Math.random()*100), y: Math.round(Math.random()*100) } }));
   const start = process.cpuUsage();
   const collection = PlanarElements(elements);
-  elements.forEach((element) => {
-    collection.findClosestElement(element.point)
-  });
+  let element = elements[0];
+  while (collection.count() > 0) {
+    collection.remove(element);
+    const nextElement = collection.findClosestElement(element.point);
+    element = nextElement;
+  }
   return process.cpuUsage(start).user / 1e6;
 }
 
